@@ -1,0 +1,112 @@
+main {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	.wrap {
+		display: flex;
+		flex-direction: row;
+	}
+
+	section {
+		display: flex;
+		flex-direction: column;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+
+		& label {
+			font-size: 14px;
+		}
+
+		.inputs {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 40px;
+		}
+
+		& input {
+			height: 30px;
+			width: 200px;
+			border-radius: 5px;
+			font-size: 16px;
+			text-align: center;
+		}
+		.container {
+			display: flex;
+			flex-direction: row;
+		}
+	}
+
+	.enter-buttons {
+		display: flex;
+		flex-direction: column;
+
+		button {
+			height: 50px;
+			width: 100px;
+			margin-top: 10px;
+			margin-left: 40px;
+			border-radius: 10px;
+			font-family: 'JetBrains Mono', monospace;
+			font-optical-sizing: auto;
+			font-weight: 600;
+			font-style: normal;
+			font-size: 14px;
+			background-color: rgb(150, 150, 150);
+			border: none;
+			color: black;
+			margin-bottom: 30px;
+			cursor: pointer;
+		}
+	}
+	h1 {
+		font-size: 36px;
+		font-weight: 800;
+		margin-bottom: 70px;
+		margin-top: 50px;
+	}
+	.visual-container {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.equal {
+		margin-left: 20px;
+		margin-right: 30px;
+	}
+}
+
+.cells {
+	margin-right: 15px;
+}
+
+.rows {
+	margin-bottom: 15px;
+}
+
+.solve-button {
+	height: 50px;
+	width: auto;
+	margin-top: 10px;
+	margin-left: 40px;
+	border-radius: 10px;
+	font-family: 'JetBrains Mono', monospace;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: normal;
+	font-size: 14px;
+	background-color: rgb(0, 100, 0);
+	border: none;
+	color: #fff;
+	margin-bottom: 30px;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+
+.solve-button:hover {
+	background-color: rgb(0, 80, 0);
+}
