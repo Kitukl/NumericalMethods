@@ -7,6 +7,7 @@ export function Gaus() {
 	const [equals, setEquals] = useState([])
 	const [mat, setMat] = useState('')
 	const [equal, setEqual] = useState('')
+	const [result, setResult] = useState([])
 
 	const handleClick = () => {
 		const numSize = parseInt(size)
@@ -42,6 +43,44 @@ export function Gaus() {
 		return rows
 	}
 
+	const solveGauss = (matrix, equals) => {
+		const size = matrix.length
+		const epsilon = 1e-10
+
+		// Елімінація
+		for (let i = 0; i < size; i++) {
+			if (Math.abs(matrix[i][i]) < epsilon) {
+				console.error(`Елемент на діагоналі близький до нуля: ${matrix[i][i]}`)
+				return
+			}
+
+			for (let j = i + 1; j < size; j++) {
+				const factor = matrix[j][i] / matrix[i][i]
+				for (let k = i; k < size; k++) {
+					matrix[j][k] -= factor * matrix[i][k]
+				}
+				equals[j] -= factor * equals[i]
+			}
+		}
+
+		const solutions = new Array(size)
+		for (let i = size - 1; i >= 0; i--) {
+			let sum = equals[i]
+			for (let j = i + 1; j < size; j++) {
+				sum -= matrix[i][j] * solutions[j]
+			}
+			solutions[i] = sum / matrix[i][i]
+
+			if (Math.abs(solutions[i]) < epsilon) {
+				solutions[i] = 0
+			} else {
+				solutions[i] = Math.round(solutions[i] * 10000000000) / 10000000000
+			}
+		}
+
+		setResult(solutions)
+	}
+
 	const printEquals = equals => {
 		const rows = []
 		for (let i = 0; i < equals.length; i++) {
@@ -55,14 +94,13 @@ export function Gaus() {
 	}
 
 	const validationEqual = () => {
-		if (equal.length > size * 2 - 1) {
-			alert('Рядок введений з 3 поля є задовгим')
-			return
-		}
-
 		const temp = equal.split(',')
 		if (temp.length < size) {
 			alert('Рядок введений з 3 поля є закоротким')
+			return
+		}
+		if (temp.length > size) {
+			alert('Рядок введений з 3 поля є задовгим')
 			return
 		}
 		setEquals(temp)
@@ -87,8 +125,6 @@ export function Gaus() {
 		}
 		setMatrix(tempMatrix)
 	}
-
-	const gausMethod = (matrix, equals) => {}
 
 	return (
 		<main>
@@ -143,7 +179,14 @@ export function Gaus() {
 					</button>
 				</div>
 			</div>
-			<button className='solve-button'>Розв'язати систему рівнянь</button>
+			<button
+				className='solve-button'
+				onClick={() => {
+					solveGauss(matrix, equals)
+				}}
+			>
+				Розв`язати систему рівнянь
+			</button>
 			<div className='visual-container'>
 				<div className='matrix'>{printMatrix(matrix)}</div>
 				<span className='equal'>
@@ -151,6 +194,7 @@ export function Gaus() {
 				</span>
 				<div className='matrix'>{printEquals(equals)}</div>
 			</div>
+			<p>Результат: {result.join(', ')}</p>
 		</main>
 	)
 }
