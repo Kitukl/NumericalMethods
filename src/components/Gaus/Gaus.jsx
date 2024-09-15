@@ -50,7 +50,6 @@ export function Gaus() {
 		// Елімінація
 		for (let i = 0; i < size; i++) {
 			if (Math.abs(matrix[i][i]) < epsilon) {
-				console.error(`Елемент на діагоналі близький до нуля: ${matrix[i][i]}`)
 				return
 			}
 
