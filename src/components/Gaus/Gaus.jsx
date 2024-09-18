@@ -8,6 +8,7 @@ export function Gaus() {
 	const [mat, setMat] = useState('')
 	const [equal, setEqual] = useState('')
 	const [result, setResult] = useState([])
+	const [error, setError] = useState('')
 
 	const handleClick = () => {
 		const numSize = parseInt(size)
@@ -41,43 +42,6 @@ export function Gaus() {
 			)
 		}
 		return rows
-	}
-
-	const solveGauss = (matrix, equals) => {
-		const size = matrix.length
-		const epsilon = 1e-10
-
-		// Елімінація
-		for (let i = 0; i < size; i++) {
-			if (Math.abs(matrix[i][i]) < epsilon) {
-				return
-			}
-
-			for (let j = i + 1; j < size; j++) {
-				const factor = matrix[j][i] / matrix[i][i]
-				for (let k = i; k < size; k++) {
-					matrix[j][k] -= factor * matrix[i][k]
-				}
-				equals[j] -= factor * equals[i]
-			}
-		}
-
-		const solutions = new Array(size)
-		for (let i = size - 1; i >= 0; i--) {
-			let sum = equals[i]
-			for (let j = i + 1; j < size; j++) {
-				sum -= matrix[i][j] * solutions[j]
-			}
-			solutions[i] = sum / matrix[i][i]
-
-			if (Math.abs(solutions[i]) < epsilon) {
-				solutions[i] = 0
-			} else {
-				solutions[i] = Math.round(solutions[i] * 10000000000) / 10000000000
-			}
-		}
-
-		setResult(solutions)
 	}
 
 	const printEquals = equals => {
@@ -123,6 +87,44 @@ export function Gaus() {
 			tempMatrix.push(rows)
 		}
 		setMatrix(tempMatrix)
+	}
+
+	const solveGauss = (matrix, equals) => {
+		const epsilon = 1e-10
+
+		for (let i = 0; i < size; i++) {
+			if (Math.abs(matrix[i][i]) < epsilon) {
+				setError(
+					`Елемент на діагоналі близький до нуля (введіть інше рівняння)`
+				)
+				return
+			}
+
+			for (let j = i + 1; j < size; j++) {
+				const factor = matrix[j][i] / matrix[i][i]
+				for (let k = i; k < size; k++) {
+					matrix[j][k] -= factor * matrix[i][k]
+				}
+				equals[j] -= factor * equals[i]
+			}
+		}
+
+		const solutions = new Array(size)
+		for (let i = size - 1; i >= 0; i--) {
+			let sum = equals[i]
+			for (let j = i + 1; j < size; j++) {
+				sum -= matrix[i][j] * solutions[j]
+			}
+			solutions[i] = sum / matrix[i][i]
+
+			if (Math.abs(solutions[i]) < epsilon) {
+				solutions[i] = 0
+			} else {
+				solutions[i] = Math.round(solutions[i] * 10000000000) / 10000000000
+			}
+		}
+
+		setResult(solutions)
 	}
 
 	return (
@@ -180,9 +182,7 @@ export function Gaus() {
 			</div>
 			<button
 				className='solve-button'
-				onClick={() => {
-					solveGauss(matrix, equals)
-				}}
+				onClick={() => solveGauss(matrix, equals)}
 			>
 				Розв`язати систему рівнянь
 			</button>
@@ -193,7 +193,7 @@ export function Gaus() {
 				</span>
 				<div className='matrix'>{printEquals(equals)}</div>
 			</div>
-			<p>Результат: {result.join(', ')}</p>
+			<p>Результат: {error ? error : result.join(', ')}</p>
 		</main>
 	)
 }
