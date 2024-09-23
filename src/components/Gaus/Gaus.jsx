@@ -8,7 +8,6 @@ export function Gaus() {
 	const [mat, setMat] = useState('')
 	const [equal, setEqual] = useState('')
 	const [result, setResult] = useState([])
-	const [error, setError] = useState('')
 
 	const handleClick = () => {
 		const numSize = parseInt(size)
@@ -92,12 +91,19 @@ export function Gaus() {
 	const solveGauss = (matrix, equals) => {
 		const epsilon = 1e-10
 
+		const swapRows = (matrix, row1, row2) => {
+			;[matrix[row1], matrix[row2]] = [matrix[row2], matrix[row1]]
+			;[equals[row1], equals[row2]] = [equals[row2], equals[row1]]
+		}
+
 		for (let i = 0; i < size; i++) {
 			if (Math.abs(matrix[i][i]) < epsilon) {
-				setError(
-					`Елемент на діагоналі близький до нуля (введіть інше рівняння)`
-				)
-				return
+				for (let j = i + 1; j < size; j++) {
+					if (Math.abs(matrix[j][i]) >= epsilon) {
+						swapRows(matrix, i, j)
+						break
+					}
+				}
 			}
 
 			for (let j = i + 1; j < size; j++) {
@@ -119,11 +125,8 @@ export function Gaus() {
 
 			if (Math.abs(solutions[i]) < epsilon) {
 				solutions[i] = 0
-			} else {
-				solutions[i] = Math.round(solutions[i] * 10000000000) / 10000000000
 			}
 		}
-
 		setResult(solutions)
 	}
 
@@ -193,7 +196,7 @@ export function Gaus() {
 				</span>
 				<div className='matrix'>{printEquals(equals)}</div>
 			</div>
-			<p>Результат: {error ? error : result.join(', ')}</p>
+			<p>Результат: {result.join(', ')}</p>
 		</main>
 	)
 }
