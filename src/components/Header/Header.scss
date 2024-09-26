@@ -15,5 +15,10 @@ nav {
 		background-color: rgb(60, 60, 60);
 		color: aliceblue;
 		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	.nav__buttons:hover {
+		transform: scale(1.05);
 	}
 }
