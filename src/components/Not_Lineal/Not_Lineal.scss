@@ -1,14 +1,43 @@
 @import '../mixins/mixins.scss';
 
 .global {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+	display: flex;
+	flex-direction: column;
 }
-main {
+.not_lineal__main {
 	@include main;
+	margin-left: 17%;
 }
 
 aside {
 	display: flex;
 	flex-direction: column;
+	background-color: rgb(50, 50, 50);
+	border-radius: 15px;
+	margin-top: 10%;
+	position: fixed;
+	a {
+		text-decoration: none;
+		color: #fff;
+	}
+
+	.asside__button {
+		width: 200px;
+		padding: 10%;
+		border: none;
+		margin: 20px;
+		font-size: 18px;
+		background-color: rgb(50, 50, 50);
+		color: #fff;
+		cursor: pointer;
+		font-family: 'JetBrains Mono', monospace;
+		font-optical-sizing: auto;
+		font-weight: 600;
+		font-style: normal;
+		transition: all 0.1s;
+	}
+
+	.asside__button:hover {
+		transform: scale(1.05);
+	}
 }

@@ -1,18 +1,23 @@
-import './Not_Lineal'
+import './Not_Lineal.scss'
 
 function Not_Lineal() {
 	return (
 		<div className='global'>
 			<aside>
-				<button className='asside__button'>Ітераційний метод</button>
-				<button className='asside__button'>Метод Ньютона</button>
-				<button className='asside__button'>Метрд хорд</button>
+				<button className='asside__button'>
+					<a href='#iteration'>Ітераційний метод</a>
+				</button>
+				<button className='asside__button'>
+					<a href='#iteration'>Метод Ньютона</a>
+				</button>
+				<button className='asside__button'>
+					<a href='#iteration'>Метрд хорд</a>
+				</button>
 			</aside>
-			<main>
-				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio
-				assumenda, ipsa laudantium aperiam consequatur fugiat eius omnis velit,
-				reprehenderit possimus et aspernatur numquam nesciunt ad explicabo fugit
-				nemo quia quasi!
+			<main className='not_lineal__main'>
+				<div className='iteration__method'>
+					<h1 id='iteration'>Ітераційний метод</h1>
+				</div>
 			</main>
 		</div>
 	)
