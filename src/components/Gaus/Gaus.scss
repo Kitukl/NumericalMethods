@@ -1,7 +1,5 @@
-main {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
+@import '../' main {
+	@include main;
 
 	.wrap {
 		display: flex;

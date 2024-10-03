@@ -9,6 +9,9 @@ export function Header() {
 			<button className='nav__buttons' onClick={() => navigate('/')}>
 				Метод Гауса
 			</button>
+			<button className='nav__buttons' onClick={() => navigate('/not_lineal')}>
+				Не лінійні рівняння
+			</button>
 		</nav>
 	)
 }
