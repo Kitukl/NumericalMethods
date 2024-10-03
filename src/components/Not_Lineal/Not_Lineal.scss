@@ -1,0 +1,14 @@
+@import '../mixins/mixins.scss';
+
+.global {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+main {
+	@include main;
+}
+
+aside {
+	display: flex;
+	flex-direction: column;
+}

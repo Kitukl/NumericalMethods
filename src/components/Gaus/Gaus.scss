@@ -1,4 +1,5 @@
-@import '../' main {
+@import '../mixins/mixins.scss';
+main {
 	@include main;
 
 	.wrap {
