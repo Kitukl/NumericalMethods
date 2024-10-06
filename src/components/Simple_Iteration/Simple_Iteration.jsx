@@ -1,3 +1,4 @@
+import { Tooltip } from 'chart.js'
 import { abs, derivative, evaluate, parse } from 'mathjs'
 import { useState } from 'react'
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
@@ -101,6 +102,7 @@ function Simple_Iteration() {
 						<CartesianGrid strokeDasharray='1 0' />
 						<XAxis dataKey='x' />
 						<YAxis />
+						<Tooltip />
 						<Line type='monotone' dataKey='y' stroke='#ffffff' />
 					</LineChart>
 				)}
