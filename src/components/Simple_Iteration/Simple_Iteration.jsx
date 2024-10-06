@@ -1,14 +1,16 @@
-import { evaluate } from 'mathjs'
+import { abs, derivative, evaluate, parse } from 'mathjs'
 import { useState } from 'react'
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
 import './Simple_Iteration.scss'
 
 function Simple_Iteration() {
 	const EPSILON = 0.00001
 
 	const [func, setFunc] = useState('')
+	const [phi, setPhi] = useState('')
 	const [interval, setInterval] = useState('')
-	const [startValue, setStartValue] = useState(null)
 	const [result, setResult] = useState(null)
+	const [data, setData] = useState([])
 
 	const createInterval = () => {
 		const arrange = interval.split(',').map(Number)
@@ -20,36 +22,41 @@ function Simple_Iteration() {
 	}
 
 	const simpleIterationMethod = () => {
-		const xValues = createInterval()
-		const it = 0
-		if (!xValues) {
-			alert('Неправильний інтервал')
+		const phiExpr = parse(phi)
+		const phiDeriv = derivative(phiExpr, 'x')
+		const intervals = createInterval()
+
+		if (!intervals) {
+			setResult('Некоректний інтервал')
 			return
 		}
 
-		let x0 = Number(startValue)
-		if (isNaN(x0) || x0 < xValues[0] || x0 > xValues[1]) {
-			alert('Неправильне початкове значення')
+		let x0 = (intervals[0] + intervals[1]) / 2
+		let phiDerivValue = evaluate(phiDeriv.toString(), { x: x0 })
+
+		if (abs(phiDerivValue) >= 1) {
+			setResult('Умова збіжності не виконується')
 			return
 		}
 
-		const psi = 0.5
-		const phi = x => x - psi * evaluate(func, { x })
-
-		while (true) {
-			const x1 = phi(x0)
-
-			if (Math.abs(x1 - x0) < EPSILON) {
-				setResult(x1)
-				break
-			}
-
+		let x1 = evaluate(phi.toString(), { x: x0 })
+		while (abs(x1 - x0) >= EPSILON) {
 			x0 = x1
-			if (x0 < xValues[0] || x0 > xValues[1]) {
-				alert('Вихід за межі інтервалу')
-				return
-			}
+			x1 = evaluate(phi.toString(), { x: x0 })
 		}
+		setResult(x1)
+		plotFunction()
+	}
+
+	const plotFunction = () => {
+		const intervals = createInterval()
+		const temp_data = []
+		const step = (intervals[1] - intervals[0]) / 10
+		for (let x = intervals[0]; x <= intervals[1]; x += step) {
+			const temp = { x: x, y: evaluate(func.toString(), { x: x }) }
+			temp_data.push(temp)
+		}
+		setData(temp_data)
 	}
 
 	return (
@@ -63,34 +70,41 @@ function Simple_Iteration() {
 						onChange={e => setFunc(e.target.value)}
 					/>
 				</div>
-
 				<div className='inputs'>
-					<label htmlFor='interval'>
-						Введіть проміжок для х (наприклад: 0,5, 1,5)
-					</label>
+					<label htmlFor='phi'>Введіть функцію фі</label>
+					<input
+						type='text'
+						name='phi'
+						onChange={e => setPhi(e.target.value)}
+					/>
+				</div>
+				<div className='inputs'>
+					<label htmlFor='interval'>Введіть проміжок для х</label>
 					<input
 						type='text'
 						name='interval'
 						onChange={e => setInterval(e.target.value)}
 					/>
 				</div>
-				<div className='inputs'>
-					<label htmlFor='startValue'>Введіть початкове значення </label>
-					<input
-						type='text'
-						name='startValue'
-						onChange={e => setStartValue(e.target.value)}
-					/>
-				</div>
 			</form>
 			<button className='solve-button' onClick={simpleIterationMethod}>
 				Розв`язати рівняння
 			</button>
-			{result && (
-				<div>
-					<h3>Результат: {result}</h3>
-				</div>
-			)}
+			<div>
+				<h3>
+					Результат для {func}: {result}
+				</h3>
+			</div>
+			<div className='chart'>
+				{data.length > 0 && (
+					<LineChart width={600} height={400} data={data}>
+						<CartesianGrid strokeDasharray='1 0' />
+						<XAxis dataKey='x' />
+						<YAxis />
+						<Line type='monotone' dataKey='y' stroke='#ffffff' />
+					</LineChart>
+				)}
+			</div>
 		</div>
 	)
 }
