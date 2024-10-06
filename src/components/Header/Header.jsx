@@ -10,7 +10,7 @@ export function Header() {
 				Метод Гауса
 			</button>
 			<button className='nav__buttons' onClick={() => navigate('/not_lineal')}>
-				Не лінійні рівняння
+				Нелінійні рівняння
 			</button>
 		</nav>
 	)
