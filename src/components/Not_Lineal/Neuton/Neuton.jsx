@@ -1,5 +1,13 @@
 import { abs, derivative, evaluate, parse } from 'mathjs'
 import { useState } from 'react'
+import {
+	CartesianGrid,
+	Line,
+	LineChart,
+	ReferenceLine,
+	XAxis,
+	YAxis,
+} from 'recharts'
 import './Neuton.scss'
 
 function Neuton() {
@@ -30,12 +38,19 @@ function Neuton() {
 			alert('Не правильно задане значення')
 			return
 		}
+
 		let z = -(evaluate(func, { x: i }) / evaluate(deriv.toString(), { x: i }))
 		while (abs(z) >= EPSILON) {
-			z = -(evaluate(func, { x: i }) / evaluate(deriv.toString(), { x: i }))
-			i += z
+			z = evaluate(func, { x: i }) / evaluate(deriv.toString(), { x: i })
+			i -= z
+
+			if (i < xValues[0] || i > xValues[1]) {
+				i = (xValues[0] + xValues[1]) / 2
+			}
 		}
+
 		setResult(i)
+		printPlot()
 	}
 
 	const printPlot = () => {
@@ -88,6 +103,15 @@ function Neuton() {
 					<h3>Результат: {result}</h3>
 				</div>
 			)}
+			<div className='chart'>
+				<LineChart width={600} height={400} data={data} className='charter'>
+					<CartesianGrid strokeDasharray='1 0' />
+					<XAxis />
+					<YAxis />
+					<Line type='monotone' dataKey='y' stroke='#ffffff' />
+					<ReferenceLine x={result} stroke='red' label='Корінь' />
+				</LineChart>
+			</div>
 		</div>
 	)
 }
