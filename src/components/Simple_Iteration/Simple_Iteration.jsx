@@ -1,5 +1,9 @@
 function Simple_Iteration() {
-	return <div></div>
+	return (
+		<div className='container'>
+			<form className=''></form>
+		</div>
+	)
 }
 
 export default Simple_Iteration
