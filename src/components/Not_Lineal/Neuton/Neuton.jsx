@@ -61,7 +61,7 @@ function Neuton() {
 		<div className='container'>
 			<form>
 				<div className='inputs'>
-					<label htmlFor='matrix-size'>Введіть рівняння</label>
+					<label htmlFor='matrix-size'>Введіть функцію</label>
 					<input
 						type='text'
 						name='matrix-size'

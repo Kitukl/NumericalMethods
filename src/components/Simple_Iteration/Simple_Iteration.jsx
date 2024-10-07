@@ -64,7 +64,7 @@ function Simple_Iteration() {
 		<div className='container'>
 			<form>
 				<div className='inputs'>
-					<label htmlFor='function'>Введіть рівняння</label>
+					<label htmlFor='function'>Введіть функцію</label>
 					<input
 						type='text'
 						name='function'
