@@ -1,4 +1,4 @@
-import { Tooltip } from 'chart.js'
+﻿import { Tooltip } from 'chart.js'
 import { abs, derivative, evaluate, parse } from 'mathjs'
 import { useState } from 'react'
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'

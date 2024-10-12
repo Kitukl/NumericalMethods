@@ -1,6 +1,6 @@
 import Neuton from '../Not_Lineal/Neuton/Neuton.jsx'
-import '../Simple_Iteration/Simple_Iteration.jsx'
-import Simple_Iteration from '../Simple_Iteration/Simple_Iteration.jsx'
+import './Simple_Iteration/Simple_Iteration.jsx'
+import Simple_Iteration from './Simple_Iteration/Simple_Iteration.jsx'
 import './Not_Lineal.scss'
 
 function Not_Lineal() {

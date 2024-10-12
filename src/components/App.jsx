@@ -3,6 +3,7 @@ import './App.scss'
 import { Gaus } from './Gaus/Gaus.jsx'
 import { Header } from './Header/Header.jsx'
 import Not_Lineal from './Not_lineal/Not_Lineal.jsx'
+import Interpolatian from "./Interpolation/Interpolatian.jsx";
 
 const Layout = () => {
 	return (
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
 				path: '/not_lineal',
 				element: <Not_Lineal />,
 			},
+			{
+				path: 'interpolation',
+				element: <Interpolatian />,
+			}
 		],
 	},
 ])
