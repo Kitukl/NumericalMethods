@@ -12,6 +12,7 @@ function Simple_Iteration() {
 	const [interval, setInterval] = useState('')
 	const [result, setResult] = useState(null)
 	const [data, setData] = useState([])
+	const [iteration, setIteration] = useState(0)
 
 	const createInterval = () => {
 		const arrange = interval.split(',').map(Number)
@@ -21,6 +22,8 @@ function Simple_Iteration() {
 			return null
 		}
 	}
+
+	//To-Do: переписати метод ітерації, зробити більше перевірок, написати перевірку для Ньютона
 
 	const simpleIterationMethod = () => {
 		const phiExpr = parse(phi)
@@ -41,9 +44,10 @@ function Simple_Iteration() {
 		}
 
 		let x1 = evaluate(phi.toString(), { x: x0 })
-		while (abs(x1 - x0) >= EPSILON) {
+		while ((abs(x1 - x0) >= EPSILON) && (iteration <= 5000)) {
 			x0 = x1
 			x1 = evaluate(phi.toString(), { x: x0 })
+			setIteration(prev => prev + 1)
 		}
 		setResult(x1)
 		plotFunction()

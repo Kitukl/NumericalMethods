@@ -12,6 +12,7 @@ function Neuton() {
 	const [startValue, setStartValue] = useState(null)
 	const [data, setData] = useState([])
 	const [result, setResult] = useState(null)
+	const [iteration, setIteration] = useState(0)
 
 	const createInterval = () => {
 		const arrange = interval.split(',').map(Number)
@@ -34,13 +35,13 @@ function Neuton() {
 		}
 
 		let z = evaluate(func, { x: i }) / evaluate(deriv.toString(), { x: i })
-		while (abs(z) >= EPSILON) {
+		while ((abs(z) >= EPSILON) && (iteration <= 5000)) {
 			z = evaluate(func, { x: i }) / evaluate(deriv.toString(), { x: i })
 			i -= z
-
 			if (i < xValues[0] || i > xValues[1]) {
 				i = (xValues[0] + xValues[1]) / 2
 			}
+			setIteration( prev => prev + 1)
 		}
 
 		setResult(i)
