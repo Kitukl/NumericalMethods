@@ -25,6 +25,7 @@ function Simple_Iteration() {
 
 	const simpleIterationMethod = () => {
 		const intervals = createInterval();
+		setIteration(0)
 
 		if (!intervals) {
 			setResult('Некоректний інтервал');
@@ -63,7 +64,7 @@ function Simple_Iteration() {
 		} else {
 			setResult(`Корінь рівняння: ${x1}`);
 		}
-	};
+	}
 
 	return (
 		<div className='container'>

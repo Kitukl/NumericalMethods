@@ -16,7 +16,7 @@ function Not_Lineal() {
 			</aside>
 			<main className='not_lineal__main'>
 				<div className='iteration__method'>
-					<h1 id='iteration'>Ітераційний метод</h1>
+					<h1 id='iteration'>Метод простої ітерації</h1>
 					<Simple_Iteration />
 					<h1 id='neuton'>Метод Ньютона</h1>
 					<Neuton />
