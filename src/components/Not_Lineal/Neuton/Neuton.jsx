@@ -93,11 +93,9 @@ function Neuton() {
 			<button className='solve-button' onClick={NeutonMethod}>
 				Розв`язати рівняння
 			</button>
-
 				<div>
 					<h3>Результат: {result}</h3>
 				</div>
-			
 			<div className='chart'>
 				{data.length > 0 && (
 					<LineChart width={600} height={400} data={data}>

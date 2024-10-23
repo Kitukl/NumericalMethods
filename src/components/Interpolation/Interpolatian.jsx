@@ -1,61 +1,102 @@
-import '../Interpolation/Interpolatian.scss'
-import {useState} from "react";
+import { useState } from 'react';
+import { CartesianGrid, Line, LineChart, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
+const LagrangeInterpolation = () => {
+    const [xPointsString, setXPointsString] = useState('');
+    const [yPointsString, setYPointsString] = useState('');
+    const [newX, setNewX] = useState('');
+    const [result, setResult] = useState(null);
+    const [data, setData] = useState([]);
 
-const Interpolatian = () => {
-    const [x_pointsString, setX_PointsString] = useState('')
-    const [y_pointsString, setY_pointsString] = useState('')
+    const printPlot = (xValues, yValues) => {
+        const temp = [];
+        for (let i = 0; i < xValues.length; i++) {
+            temp.push({ x: xValues[i], y: yValues[i] });
+        }
+        return temp;
+    };
 
     const strToArray = (stringValue) => {
-        const arr = stringValue.split(',')
-        return arr
-    }
+        return stringValue.split(',').map(Number);
+    };
 
-    const Interpolatian = () => {
-        const [x_points, setX_Points] = useState([])
-        const [y_points, setY_Points] = useState([])
+    const calculateLagrange = (x, y, xValue) => {
+        let P = 0;
+        for (let i = 0; i < x.length; i++) {
+            let L = 1;
+            for (let j = 0; j < x.length; j++) {
+                if (i !== j) {
+                    L *= (xValue - x[j]) / (x[i] - x[j]);
+                }
+            }
+            P += y[i] * L;
+        }
+        return P;
+    };
 
-        setX_Points(strToArray(x_pointsString))
-        setY_Points(strToArray(y_pointsString))
+    const handleCalculate = (e) => {
+        e.preventDefault();
+        const xPoints = strToArray(xPointsString);
+        const yPoints = strToArray(yPointsString);
+        const xValue = parseFloat(newX);
 
+        if (xPoints.length !== yPoints.length) {
+            alert("Кількість x та y точок повинна бути однаковою.");
+            return;
+        }
 
-    }
+        const yValue = calculateLagrange(xPoints, yPoints, xValue);
+        setResult(yValue);
+        setData(printPlot(xPoints, yPoints));
+    };
 
-    return (<main>
-        <h1>Інтерполяція</h1>
-        <section>
-            <form>
+    return (
+        <main>
+            <h1>Інтерполяційний поліном Лагранжа</h1>
+            <form className='container'>
                 <div className='inputs'>
-                    <label htmlFor='matrix-size'>
-                        Введіть точки x
-                    </label>
+                    <label>Введіть точки x (через кому):</label>
                     <input
                         type='text'
-                        name='matrix-size'
-                        onChange={e => {
-                            setX_PointsString(e.target.value)
-                        }}
+                        value={xPointsString}
+                        onChange={e => setXPointsString(e.target.value)}
                     />
                 </div>
                 <div className='inputs'>
-                    <label htmlFor='matrix-size'>
-                        Введіть точки y
-                    </label>
+                    <label>Введіть точки y (через кому):</label>
                     <input
                         type='text'
-                        name='matrix-size'
-                        onChange={e => {setY_pointsString(e.target.value)
-                        }}
+                        value={yPointsString}
+                        onChange={e => setYPointsString(e.target.value)}
                     />
                 </div>
+                <div className='inputs'>
+                    <label>Введіть нове значення x:</label>
+                    <input
+                        type='text'
+                        value={newX}
+                        onChange={e => setNewX(e.target.value)}
+                    />
+                </div>
+                <button className='solve-button' onClick={handleCalculate}>Обчислити значення для нового x</button>
             </form>
-            <div className='enter-buttons'></div>
-            <button className='solve-button'>
-                Розв`язати рівняння
-            </button>
+            <div>
+                {result !== null && (
+                    <h2>Значення y для x = {newX} : {result}</h2>
+                )}
+            </div>
+            <div>
+                {data.length > 0 && (
+                    <LineChart width={600} height={400} data={data}>
+                    <CartesianGrid stroke='#ccc' />
+                    <XAxis dataKey='x' />
+                    <YAxis />
+                    <Line type='monotone' dataKey='y' stroke='#fff' />
+                </LineChart>)}
 
-        </section>
-    </main>)
-}
+            </div>
+        </main>
+    );
+};
 
-export default Interpolatian
+export default LagrangeInterpolation;
