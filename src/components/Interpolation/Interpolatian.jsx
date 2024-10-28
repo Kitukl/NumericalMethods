@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { CartesianGrid, Line, LineChart, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { CartesianGrid, Line, LineChart, XAxis, YAxis} from 'recharts';
+import Newton from "./Newton.jsx";
 
 const LagrangeInterpolation = () => {
     const [xPointsString, setXPointsString] = useState('');
@@ -35,7 +36,7 @@ const LagrangeInterpolation = () => {
     };
 
     const handleCalculate = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const xPoints = strToArray(xPointsString);
         const yPoints = strToArray(yPointsString);
         const xValue = parseFloat(newX);
@@ -95,6 +96,7 @@ const LagrangeInterpolation = () => {
                 </LineChart>)}
 
             </div>
+            <Newton/>
         </main>
     );
 };
