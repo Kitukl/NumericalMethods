@@ -2,8 +2,9 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import './App.scss'
 import { Gaus } from './Gaus/Gaus.jsx'
 import { Header } from './Header/Header.jsx'
+import IntegrationMethod from './IntegrationMethod/IntegrationMethod.tsx'
+import Interpolatian from './Interpolation/Interpolatian.jsx'
 import Not_Lineal from './Not_lineal/Not_Lineal.jsx'
-import Interpolatian from "./Interpolation/Interpolatian.jsx";
 
 const Layout = () => {
 	return (
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
 			{
 				path: 'interpolation',
 				element: <Interpolatian />,
-			}
+			},
+			{
+				path: 'integration',
+				element: <IntegrationMethod />,
+			},
 		],
 	},
 ])

@@ -96,7 +96,7 @@ const Newton = () => {
         </div>
             {result !== null && (
                 <div>
-                    <h3>Інтерпольоване значення: {result}</h3>
+                    <h3>Значення функції в x = {newX}: {result}</h3>
                 </div>
             )}
             {data.length > 0 && (

@@ -12,8 +12,14 @@ export function Header() {
 			<button className='nav__buttons' onClick={() => navigate('/not_lineal')}>
 				Нелінійні рівняння
 			</button>
-			<button className='nav__buttons' onClick={() => navigate('/interpolation')}>
+			<button
+				className='nav__buttons'
+				onClick={() => navigate('/interpolation')}
+			>
 				Інтерполяція
+			</button>
+			<button className='nav__buttons' onClick={() => navigate('/integration')}>
+				Чисельне інтегрування
 			</button>
 		</nav>
 	)
