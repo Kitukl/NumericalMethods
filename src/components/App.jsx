@@ -4,7 +4,7 @@ import { Gaus } from './Gaus/Gaus.jsx'
 import { Header } from './Header/Header.jsx'
 import IntegrationMethod from './IntegrationMethod/IntegrationMethod.tsx'
 import Interpolatian from './Interpolation/Interpolatian.jsx'
-import Not_Lineal from './Not_lineal/Not_Lineal.jsx'
+import Not_Lineal from './Not_Lineal/Not_Lineal.jsx'
 
 const Layout = () => {
 	return (
